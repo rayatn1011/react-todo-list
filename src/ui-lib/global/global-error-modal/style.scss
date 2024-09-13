@@ -1,0 +1,29 @@
+.global-error-modal {
+  word-break: break-all;
+
+  &__container {
+    padding: 32px;
+    width: 520px;
+  }
+  &__message {
+    margin-bottom: 32px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 24px;
+  }
+  &__data {
+    margin-bottom: 64px;
+    font-size: 14px;
+    color: #555;
+  }
+  &__ol {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: decimal;
+    list-style-position: inside;
+  }
+  &__button-container {
+    text-align: center;
+  }
+}
