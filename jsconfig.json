@@ -4,5 +4,6 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "javascript.preferences.importModuleSpecifier": "non-relative"
 }
