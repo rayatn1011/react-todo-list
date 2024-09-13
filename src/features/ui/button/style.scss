@@ -1,0 +1,15 @@
+.ui-button {
+  border-radius: 10px;
+  padding: 12px 48px;
+  color: #fff;
+  background: var(--text-primary);
+  transition: 150ms;
+
+  &:hover {
+    background: var(--text-secondary);
+  }
+
+  &:active {
+    background: var(--text-primary);
+  }
+}

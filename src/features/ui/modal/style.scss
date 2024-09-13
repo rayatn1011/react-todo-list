@@ -1,0 +1,19 @@
+.ui-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000bf;
+  backdrop-filter: blur(2px);
+  z-index: 999;
+
+  &__container {
+    width: 560px;
+    max-height: 90dvh;
+    overflow: auto;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+}

@@ -1,0 +1,23 @@
+.ui-input {
+  margin-bottom: 16px;
+  color: var(--text-primary);
+
+  &__label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  &__input {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    padding: 12px 16px;
+    font-size: 16px;
+    background-color: #fff;
+
+    &::placeholder {
+      color: #9f9a91;
+    }
+  }
+}

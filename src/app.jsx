@@ -1,15 +1,17 @@
 import { RouterProvider } from 'react-router-dom';
-import { useInitFetcher } from '@/fetcher';
-import { router } from '@/router';
-import { GlobalProvider } from '@/ui-lib';
+import { FetcherProvider } from '@/features/fetcher';
+import { router } from '@/features/router';
+import { StoreProvider } from '@/features/store';
+import { GlobalErrorModal } from '@/features/ui/global/error-modal';
 
 function App() {
-  useInitFetcher();
-
   return (
-    <GlobalProvider>
-      <RouterProvider router={router} />
-    </GlobalProvider>
+    <StoreProvider>
+      <FetcherProvider>
+        <RouterProvider router={router} />
+      </FetcherProvider>
+      <GlobalErrorModal />
+    </StoreProvider>
   );
 }
 
