@@ -1,0 +1,18 @@
+$break-point-tablet: 768px;
+$break-point-desktop: 1024px;
+
+$text-primary: #333333;
+$text-secondary: #555555;
+$bg-primary: #ffd370;
+
+@mixin tablet {
+  @media (min-width: $break-point-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $break-point-desktop) {
+    @content;
+  }
+}

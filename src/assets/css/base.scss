@@ -1,10 +1,16 @@
+:root {
+  --text-primary: #{global.$text-primary};
+  --text-secondary: #{global.$text-secondary};
+  --bg-primary: #{global.$bg-primary};
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   line-height: 1.5;
-  color: #333;
+  color: var(--text-primary);
 }
 
 a {
@@ -17,4 +23,8 @@ a {
 
 button {
   cursor: pointer;
+}
+
+img {
+  display: block;
 }

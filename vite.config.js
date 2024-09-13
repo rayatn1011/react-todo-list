@@ -12,6 +12,14 @@ export default defineConfig(({ command, mode }) => {
         '@': '/src',
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          additionalData: `@use '@/assets/css/global.scss';`,
+        },
+      },
+    },
     server: {
       proxy: {
         '/api': {
