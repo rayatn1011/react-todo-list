@@ -1,0 +1,16 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background-color: var(--bg-primary);
+  width: 100dvw;
+  height: 100dvh;
+  padding: 32px;
+
+  &__title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+}
