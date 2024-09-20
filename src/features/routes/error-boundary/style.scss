@@ -1,0 +1,23 @@
+.error-boundary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background-color: var(--bg-primary);
+  width: 100dvw;
+  height: 100dvh;
+  padding: 32px;
+
+  &__title {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  &__content {
+    max-height: 50dvh;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    overflow: auto;
+  }
+}
