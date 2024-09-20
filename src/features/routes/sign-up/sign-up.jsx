@@ -62,7 +62,7 @@ export function SignUp() {
           <Input
             label="您的暱稱"
             name="nickname"
-            minlength={1}
+            minLength={1}
             required
             value={formData.nickname}
             onChange={handleInputChange}
@@ -71,7 +71,7 @@ export function SignUp() {
             label="密碼"
             name="password"
             type="new-password"
-            minlength={6}
+            minLength={6}
             required
             value={formData.password}
             onChange={handleInputChange}
@@ -81,7 +81,7 @@ export function SignUp() {
             name="rePassword"
             type="new-password"
             placeholder="請再次輸入密碼"
-            minlength={6}
+            minLength={6}
             required
             value={formData.rePassword}
             onChange={handleInputChange}
