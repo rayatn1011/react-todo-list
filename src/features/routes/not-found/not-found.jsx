@@ -2,7 +2,7 @@ import { Button } from '@/features/ui';
 import { useNavigate } from 'react-router-dom';
 import './style.scss';
 
-export function NotFound() {
+export const NotFound = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate('/');
@@ -14,4 +14,4 @@ export function NotFound() {
       <Button onClick={handleClick}>回首頁</Button>
     </div>
   );
-}
+};

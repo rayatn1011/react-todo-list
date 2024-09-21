@@ -3,7 +3,7 @@ import { FetcherProvider } from '@/features/fetcher';
 import { StoreProvider } from '@/features/store';
 import { GlobalErrorModal } from '@/features/ui/global/error-modal';
 
-export function Root() {
+export const Root = () => {
   console.log('Root: rendered');
   return (
     <StoreProvider>
@@ -13,4 +13,4 @@ export function Root() {
       <GlobalErrorModal />
     </StoreProvider>
   );
-}
+};

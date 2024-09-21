@@ -2,7 +2,7 @@ import { useNavigate, useRouteError } from 'react-router-dom';
 import { Button } from '@/features/ui';
 import './style.scss';
 
-export function ErrorBoundary() {
+export const ErrorBoundary = () => {
   const error = useRouteError();
   const navigate = useNavigate();
   const stringifyError = JSON.stringify(
@@ -21,4 +21,4 @@ export function ErrorBoundary() {
       <Button onClick={handleClick}>回首頁</Button>
     </article>
   );
-}
+};

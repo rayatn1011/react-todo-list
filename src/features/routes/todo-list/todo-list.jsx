@@ -1,5 +1,5 @@
 import './style.scss';
 
-export function TodoList() {
+export const TodoList = () => {
   return <article className="todo-list">todo-list</article>;
-}
+};

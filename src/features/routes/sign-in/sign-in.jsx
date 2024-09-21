@@ -1,5 +1,5 @@
 import './style.scss';
 
-export function SignIn() {
+export const SignIn = () => {
   return <article className="sign-in">sign-in</article>;
-}
+};

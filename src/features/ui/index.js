@@ -1,3 +1,3 @@
-export * from './button';
-export * from './input';
-export * from './modal';
+export * from './button/button';
+export * from './input/input';
+export * from './modal/modal';

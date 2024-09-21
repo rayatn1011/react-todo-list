@@ -11,7 +11,7 @@ import './style.scss';
  * 2. 登入頁
  * 3. 再次輸入密碼驗證
  */
-export function SignUp() {
+export const SignUp = () => {
   const [formData, setFormData] = useState({
     email: '',
     nickname: '',
@@ -94,4 +94,4 @@ export function SignUp() {
       </div>
     </article>
   );
-}
+};

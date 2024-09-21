@@ -1,9 +1,13 @@
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 import './style.scss';
 
-export const Input = ({ label, type = 'text', ...rest }) => {
+export const Input = forwardRef(function Input(
+  { label, type = 'text', ...rest },
+  ref,
+) {
   const inputId = useId();
   const placeholder = rest.placeholder ?? `請輸入${label}`;
+
   return (
     <div className="ui-input">
       <label className="ui-input__label" htmlFor={inputId}>
@@ -11,6 +15,7 @@ export const Input = ({ label, type = 'text', ...rest }) => {
       </label>
       <input
         {...rest}
+        ref={ref}
         className="ui-input__input"
         id={inputId}
         type={type}
@@ -18,4 +23,4 @@ export const Input = ({ label, type = 'text', ...rest }) => {
       />
     </div>
   );
-};
+});
