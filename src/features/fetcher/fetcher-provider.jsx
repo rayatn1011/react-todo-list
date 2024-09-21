@@ -4,35 +4,28 @@ import { openErrorModal } from '@/features/store/slices/error-modal';
 import { fetcher } from './fetcher';
 import { localStorageKey } from '../utils';
 
+let init = false;
 export const FetcherProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    init = true;
     const initInterceptors = () => {
-      // Add a request interceptor
       fetcher.interceptors.request.use(
         function (config) {
-          // Do something before request is sent
           return config;
         },
         function (error) {
-          // Do something with request error
           return Promise.reject(error);
         },
       );
 
-      // Add a response interceptor
       fetcher.interceptors.response.use(
         function (response) {
-          // Any status code that lie within the range of 2xx cause this function to trigger
-          // Do something with response data
           return response;
         },
         function (error) {
-          // Any status codes that falls outside the range of 2xx cause this function to trigger
-          // Do something with response error
-          console.log('error', error);
-          switch (error) {
+          switch (error.status) {
             case 401: {
               dispatch(
                 openErrorModal({
@@ -50,7 +43,7 @@ export const FetcherProvider = ({ children }) => {
         },
       );
     };
-    initInterceptors();
+    if (!init) initInterceptors();
   }, [dispatch]);
 
   return <>{children}</>;

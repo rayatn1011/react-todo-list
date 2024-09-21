@@ -2,10 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { openErrorModal } from '@/features/store/slices/error-modal';
 import { fetcher } from './fetcher';
+import { AxiosError } from 'axios';
 
 export const useFetch = (
   url,
-  { isInitFetch = false, isOpenErrorModal = true, ...fetcherConfig } = {},
+  { isInitFetch = false, isOpenErrorModal = true, schema, ...config } = {},
 ) => {
   const dispatch = useDispatch();
 
@@ -18,27 +19,39 @@ export const useFetch = (
       try {
         setIsLoading(true);
         setError();
+
+        if (schema) {
+          schema.parse({
+            ...config.params,
+            ...config.data,
+            ...values.params,
+            ...values.data,
+          });
+        }
+
         const response = await fetcher({
           url,
-          ...fetcherConfig,
+          ...config,
           ...values,
         });
         setData(response.data);
+        return response;
       } catch (e) {
         const newError = {
-          title: e?.response.data?.message ?? e.message,
-          contents: e?.response.data?.error ?? '',
+          title: e.response?.data?.message ?? '發生錯誤',
+          contents: e.response?.data?.error ?? e.message,
         };
         setError(newError);
         setData();
         if (isOpenErrorModal) {
           dispatch(openErrorModal(newError));
         }
+        if (e instanceof AxiosError === false) throw e;
       } finally {
         setIsLoading(false);
       }
     },
-    [dispatch, fetcherConfig, isOpenErrorModal, url],
+    [schema, config, url, isOpenErrorModal, dispatch],
   );
 
   useEffect(() => {
