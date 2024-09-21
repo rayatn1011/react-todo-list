@@ -1,45 +1,34 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Button } from '@/features/ui';
-import { useSignUp } from '@/features/apis';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Input, Button, Form } from '@/features/ui';
+import { useSignUp, signUpSchema } from '@/features/apis/use-sign-up';
+import { SignUpSuccessModal } from './sign-up-success-modal/sign-up-success-modal';
 import './style.scss';
 
-/**
- * TODO:
- *
- * 1. 註冊後跳頁
- * 2. 登入頁
- * 3. 再次輸入密碼驗證
- */
-export const SignUp = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    nickname: '',
-    password: '',
-    rePassword: '',
+const formSchema = signUpSchema.shape.user
+  .extend({
+    confirmPassword: z.string().min(6, { message: '輸入至少 6 個字元' }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: '兩次密碼輸入不一致',
+    path: ['confirmPassword'],
   });
 
-  const { onFetch: onSignUp } = useSignUp();
+export const SignUp = () => {
+  const formMethods = useForm({
+    resolver: zodResolver(formSchema),
+  });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const { isLoading, isSuccess, onFetch: onSignUp } = useSignUp();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (values) => {
     const submitData = {
       data: {
-        user: {
-          ...formData,
-        },
+        user: values,
       },
     };
-    delete submitData.data.user.rePassword;
-
     onSignUp(submitData);
   };
   return (
@@ -50,48 +39,37 @@ export const SignUp = () => {
       </div>
       <div className="sign-up__form">
         <h1 className="sign-up__form-title">註冊帳號</h1>
-        <form className="sign-up__form-container" onSubmit={handleSubmit}>
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            required
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-          <Input
-            label="您的暱稱"
-            name="nickname"
-            minLength={1}
-            required
-            value={formData.nickname}
-            onChange={handleInputChange}
-          />
+        <Form
+          noValidate
+          className="sign-up__form-container"
+          methods={formMethods}
+          onSubmit={onSubmit}
+        >
+          <Input label="Email" name="email" type="email" autoComplete="email" />
+          <Input label="您的暱稱" name="nickname" autoComplete="username" />
           <Input
             label="密碼"
             name="password"
-            type="new-password"
-            minLength={6}
-            required
-            value={formData.password}
-            onChange={handleInputChange}
+            type="password"
+            autoComplete="new-password"
           />
           <Input
             label="再次輸入密碼"
-            name="rePassword"
-            type="new-password"
-            placeholder="請再次輸入密碼"
-            minLength={6}
-            required
-            value={formData.rePassword}
-            onChange={handleInputChange}
+            name="confirmPassword"
+            type="password"
+            autoComplete="new-password"
           />
           <div className="sign-up__form-footer">
-            <Button>註冊帳號</Button>
-            <Link className="sign-up__link">登入</Link>
+            <Button disabled={isLoading} type="submit">
+              註冊帳號
+            </Button>
+            <Link to="/sign-in" className="sign-up__link">
+              登入
+            </Link>
           </div>
-        </form>
+        </Form>
       </div>
+      <SignUpSuccessModal isOpen={isSuccess} />
     </article>
   );
 };
