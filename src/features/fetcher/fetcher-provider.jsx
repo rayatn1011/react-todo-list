@@ -9,7 +9,6 @@ export const FetcherProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    init = true;
     const initInterceptors = () => {
       fetcher.interceptors.request.use(
         function (config) {
@@ -44,6 +43,7 @@ export const FetcherProvider = ({ children }) => {
       );
     };
     if (!init) initInterceptors();
+    init = true;
   }, [dispatch]);
 
   return <>{children}</>;
