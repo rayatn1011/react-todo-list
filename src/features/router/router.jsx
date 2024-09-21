@@ -1,5 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { ErrorBoundary, Home, NotFound, Root } from '@/features/routes';
+import { ErrorBoundary } from '@/features/routes/error-boundary';
+import { Home } from '@/features/routes/home';
+import { NotFound } from '@/features/routes/not-found';
+import { Root } from '@/features/routes/root';
+import { RouteProtector } from '@/features/routes/route-protector';
 
 export const router = createBrowserRouter([
   {
@@ -16,22 +20,32 @@ export const router = createBrowserRouter([
         element: <NotFound />,
       },
       {
-        path: 'sign-in',
-        lazy: async () => ({
-          Component: (await import('@/features/routes')).SignIn,
-        }),
+        element: <RouteProtector type="unAuth" />,
+        children: [
+          {
+            path: 'sign-in',
+            lazy: async () => ({
+              Component: (await import('@/features/routes/sign-in')).SignIn,
+            }),
+          },
+          {
+            path: 'sign-up',
+            lazy: async () => ({
+              Component: (await import('@/features/routes/sign-up')).SignUp,
+            }),
+          },
+        ],
       },
       {
-        path: 'sign-up',
-        lazy: async () => ({
-          Component: (await import('@/features/routes')).SignUp,
-        }),
-      },
-      {
-        path: 'todo-list',
-        lazy: async () => ({
-          Component: (await import('@/features/routes')).TodoList,
-        }),
+        element: <RouteProtector type="auth" />,
+        children: [
+          {
+            path: 'todo-list',
+            lazy: async () => ({
+              Component: (await import('@/features/routes/todo-list')).TodoList,
+            }),
+          },
+        ],
       },
     ],
   },
