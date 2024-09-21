@@ -1,10 +1,11 @@
-import { forwardRef, useId } from 'react';
+import { useId } from 'react';
 import './style.scss';
+import { useFormContext } from 'react-hook-form';
+import { FormErrorMessage } from '@/features/ui/form/form-error-message/form-error-message';
 
-export const Input = forwardRef(function Input(
-  { label, type = 'text', ...rest },
-  ref,
-) {
+export const Input = ({ label, type = 'text', name, ...rest }) => {
+  const { register } = useFormContext();
+
   const inputId = useId();
   const placeholder = rest.placeholder ?? `請輸入${label}`;
 
@@ -15,12 +16,13 @@ export const Input = forwardRef(function Input(
       </label>
       <input
         {...rest}
-        ref={ref}
+        {...register(name)}
         className="ui-input__input"
         id={inputId}
         type={type}
         placeholder={placeholder}
       />
+      <FormErrorMessage name={name} />
     </div>
   );
-});
+};
