@@ -1,19 +1,20 @@
+import { z } from 'zod';
 import { useFetch } from '@/features/fetcher';
 
-/**
- * 使用者登入
- *
- * @param {object} data
- * @param {object} data.user
- * @param {string} data.user.email
- * @param {string} data.user.password
- */
-export const useSignIn = (data, ...rest) => {
+export const signInSchema = z.object({
+  user: z.object({
+    email: z.string().email({ message: '輸入正確的 email 格式' }),
+    password: z.string().min(6, { message: '輸入至少 6 個字元' }),
+  }),
+});
+
+/** 使用者登入 */
+export const useSignIn = (config) => {
   const apiUrl = '/users/sign_in';
   const fetchObj = useFetch(apiUrl, {
+    ...config,
     method: 'POST',
-    data,
-    ...rest,
+    schema: signInSchema,
   });
 
   return fetchObj;
