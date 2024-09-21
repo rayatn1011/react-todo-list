@@ -13,4 +13,10 @@
   &:active {
     background: var(--text-primary);
   }
+
+  &:disabled {
+    color: #aaa;
+    background: var(--text-secondary);
+    cursor: not-allowed;
+  }
 }
