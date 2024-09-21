@@ -23,12 +23,14 @@ export const GlobalErrorModal = () => {
     >
       <div className="global-error-modal__message">{title}</div>
       <div className="global-error-modal__data">
-        {Array.isArray(contents) && (
+        {Array.isArray(contents) ? (
           <ol className="global-error-modal__ol">
             {contents.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ol>
+        ) : (
+          <p className="global-error-modal__p">{contents}</p>
         )}
       </div>
       <div className="global-error-modal__button-container">

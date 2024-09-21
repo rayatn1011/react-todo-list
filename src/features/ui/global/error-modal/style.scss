@@ -24,6 +24,12 @@
     list-style: decimal;
     list-style-position: inside;
   }
+
+  &__p {
+    min-height: 10dvh;
+    max-height: 50dvh;
+    overflow: auto;
+  }
   &__button-container {
     text-align: center;
   }
